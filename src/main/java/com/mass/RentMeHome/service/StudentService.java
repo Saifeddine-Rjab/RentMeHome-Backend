@@ -36,7 +36,7 @@ public class StudentService {
 
 	public Student deleteStudent(int id){
 		
-		//Vérification si le client existe:
+		//Vérification si l'étudiant existe:
 		Student student;
 		student=studentDao.findById(id).orElse(null);
 		
