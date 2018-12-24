@@ -1,10 +1,8 @@
 package com.mass.RentMeHome.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.mass.RentMeHome.dao.StudentDao;
 import com.mass.RentMeHome.model.Student;
 
@@ -19,14 +17,23 @@ public class StudentService {
 	}
 	
 	
-	public Student getStudentById(int id){
+	public Student getStudentById(String id){
 		return studentDao.findById(id).orElse(null);
 	}
 	
 	
 	
 	public Student addStudent(Student student){
-		return studentDao.save(student);
+		
+		//Vérification si l'étudiant existe:
+		Student studentGot;
+		studentGot=studentDao.findByEmail(student.getEmail());
+		if(studentGot==null){
+			return studentDao.save(student);
+		}
+		else {
+			return null;			
+		}
 	}
 	
 	public Student updateStudent(Student student){
@@ -34,7 +41,7 @@ public class StudentService {
 	}
 	
 
-	public Student deleteStudent(int id){
+	public Student deleteStudent(String id){
 		
 		//Vérification si l'étudiant existe:
 		Student student;
